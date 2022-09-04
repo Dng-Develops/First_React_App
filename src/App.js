@@ -7,6 +7,7 @@ class App extends Component {
     super();
     this.state = {
       users: [],
+      searchField: "",
     };
   }
 
@@ -26,9 +27,25 @@ class App extends Component {
   }
 
   render() {
+    const filteredUsers = this.state.users.filter((user) => {
+      return user.name.toLocaleLowerCase().includes(this.state.searchField);
+    });
+
     return (
       <div className="App">
-        {this.state.users.map((user) => {
+        <input
+          className="search-box"
+          placeholder="search user"
+          onChange={(event) => {
+            const searchField = event.target.value.toLocaleLowerCase();
+            this.setState(() => {
+              return {
+                searchField,
+              };
+            });
+          }}
+        />
+        {filteredUsers.map((user) => {
           return (
             <div key={user.id}>
               <h1>{user.name}</h1>
