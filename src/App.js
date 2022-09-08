@@ -1,5 +1,5 @@
 import { Component } from "react";
-import logo from "./logo.svg";
+import CardList from "./components/card-list/card-list-component";
 import "./App.css";
 
 class App extends Component {
@@ -15,20 +15,28 @@ class App extends Component {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
       .then((users) =>
-        this.setState(
-          () => {
-            return { users: users };
-          },
-          () => {
-            console.log(this.state);
-          }
-        )
+        this.setState(() => {
+          return { users: users };
+        })
       );
   }
 
+  onSearchChange = (event) => {
+    const searchField = event.target.value.toLocaleLowerCase();
+    this.setState(() => {
+      return {
+        searchField,
+      };
+    });
+  };
+
   render() {
-    const filteredUsers = this.state.users.filter((user) => {
-      return user.name.toLocaleLowerCase().includes(this.state.searchField);
+    //Destructuring
+    const { users, searchField } = this.state;
+    const { onSearchChange } = this;
+
+    const filteredUsers = users.filter((user) => {
+      return user.name.toLocaleLowerCase().includes(searchField);
     });
 
     return (
@@ -36,22 +44,9 @@ class App extends Component {
         <input
           className="search-box"
           placeholder="search user"
-          onChange={(event) => {
-            const searchField = event.target.value.toLocaleLowerCase();
-            this.setState(() => {
-              return {
-                searchField,
-              };
-            });
-          }}
+          onChange={onSearchChange}
         />
-        {filteredUsers.map((user) => {
-          return (
-            <div key={user.id}>
-              <h1>{user.name}</h1>
-            </div>
-          );
-        })}
+        <CardList users={filteredUsers} />
       </div>
     );
   }
