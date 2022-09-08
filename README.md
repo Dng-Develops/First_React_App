@@ -1,4 +1,4 @@
-# Get users through api and set current state of the app component
+# Get users from api and set current state of the App component
 
 ```javascript
   componentDidMount() {
