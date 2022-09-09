@@ -5,7 +5,7 @@ class CardList extends Component {
     const { users } = this.props;
 
     return (
-      <div>
+      <div className="card-list">
         {users.map((user) => (
           <h1 key={user.id}>{user.name}</h1>
         ))}
