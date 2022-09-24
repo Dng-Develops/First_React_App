@@ -41,6 +41,10 @@ const App = () => {
   );
 };
 
+export default App;
+
+/*--Class component version--*/
+
 // class App extends Component {
 //   constructor() {
 //     super();
@@ -92,5 +96,3 @@ const App = () => {
 //     );
 //   }
 // }
-
-export default App;
